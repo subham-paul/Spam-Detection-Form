@@ -1,0 +1,420 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f3f6fa;
+  }
+
+  /* Header with background + overlay */
+  .about-header {
+    position: relative;
+    text-align: center;
+    padding: 100px 80px;
+    border-radius: 18px;
+    margin: 80px auto;
+    max-width: 1000px;
+    background: url('https://1.bp.blogspot.com/-Cq4V61nNYpg/XSWjEIvDjDI/AAAAAAAAABI/TEYQc7P7bx8nr5KKDw0aNTa0Q58gGcjKQCLcBGAs/w1200-h630-p-k-no-nu/spam%2Bmails.PNG') center/cover no-repeat;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+  }
+
+  .about-header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0, 51, 153, 0.7), rgba(0, 204, 255, 0.6));
+    z-index: 0;
+  }
+
+  .about-header-overlay {
+    position: relative;
+    z-index: 1;
+    color: #fff;
+  }
+
+  .about-header h2 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+  }
+
+  .about-header p {
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* About Section */
+  .about-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px;
+    max-width: 1100px;
+    margin: 80px auto;
+    background: linear-gradient(135deg, #dce7ff, #f2f7ff);
+    border-radius: 18px;
+    padding: 60px 50px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .about-content:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  .about-image {
+    flex: 1;
+    text-align: center;
+  }
+
+  .about-image img {
+    width: 260px;
+    max-width: 100%;
+    border-radius: 50%;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    background: white;
+    padding: 15px;
+  }
+
+  .about-text {
+    flex: 2;
+  }
+
+  .about-text h3 {
+    color: #003f91;
+    margin-bottom: 20px;
+    font-size: 1.9rem;
+  }
+
+  .about-text p {
+    color: #333;
+    line-height: 1.8;
+    margin-bottom: 15px;
+    font-size: 1.05rem;
+  }
+
+  /* Technologies Section */
+  .technologies {
+    background: linear-gradient(135deg, #e3f2ff, #fff);
+    text-align: center;
+    padding: 70px 20px;
+    border-radius: 18px;
+    margin: 80px auto;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .technologies h3 {
+    color: #004aad;
+    margin-bottom: 35px;
+    font-size: 1.9rem;
+  }
+
+  .tech-logos {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .tech-logos div {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    width: 150px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .tech-logos div:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+  }
+
+  .tech-logos img {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 10px;
+  }
+
+  .tech-logos p {
+    margin: 0;
+    color: #004aad;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  /* Workflow Section */
+  .workflow {
+    max-width: 1100px;
+    margin: 80px auto;
+    padding: 60px 30px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #fff4e3, #fff);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .workflow h3 {
+    color: #ff6600;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 1.9rem;
+  }
+
+  .workflow-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .workflow-container img {
+    width: 420px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .workflow-text {
+    max-width: 500px;
+  }
+
+  .workflow-text p {
+    line-height: 1.7;
+    color: #444;
+  }
+
+  /* Use Case Cards */
+  .use-cases {
+    background: linear-gradient(135deg, #eafff5, #fff);
+    border-radius: 18px;
+    padding: 60px 30px;
+    margin: 80px auto;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .use-cases h3 {
+    color: #008a5c;
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 1.9rem;
+  }
+
+  .use-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+  }
+
+  .use-card {
+    background: #ffffff;
+    border-radius: 16px;
+    width: 300px;
+    text-align: center;
+    padding: 25px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .use-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  .use-card img {
+    width: 100%;
+    height: 160px;
+    border-radius: 10px;
+    object-fit: cover;
+    margin-bottom: 15px;
+  }
+
+  .use-card h4 {
+    color: #006633;
+  }
+
+  /* Team Section */
+  .team-section {
+    background: linear-gradient(135deg, #e8eaff, #f9faff);
+    border-radius: 18px;
+    padding: 70px 30px;
+    margin: 80px auto;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .team-section h3 {
+    color: #003399;
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 1.9rem;
+  }
+
+  .team-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px;
+  }
+
+  .team-member {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    text-align: center;
+    width: 230px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .team-member:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.15);
+  }
+
+  .team-member img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border: 4px solid #e0e6ff;
+  }
+
+  .team-member h5 {
+    margin: 0;
+    color: #0033cc;
+  }
+
+  .team-member p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+    color: #555;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .about-content {
+      flex-direction: column;
+      text-align: center;
+      padding: 40px 25px;
+    }
+
+    .about-image img {
+      width: 200px;
+      margin-bottom: 20px;
+    }
+
+    .workflow-container {
+      flex-direction: column;
+    }
+
+    .workflow-container img {
+      width: 90%;
+    }
+  }
+</style>
+
+<!-- Header -->
+<div class="about-header">
+  <div class="about-header-overlay">
+    <h2>About the Spam Detection System</h2>
+    <p>Discover how our AI-powered system identifies spam messages and protects users from unwanted content.</p>
+  </div>
+</div>
+
+<!-- Project Overview -->
+<div class="about-content">
+  <div class="about-image">
+    <img src="https://cdn-icons-png.flaticon.com/512/1006/1006363.png" alt="Spam Detection Logo">
+  </div>
+  <div class="about-text">
+    <h3>📘 Project Overview</h3>
+    <p>
+      The <strong>Spam Detection System</strong> is designed to automatically classify messages as either 
+      <em>spam</em> or <em>legitimate</em>. It leverages the power of 
+      <strong>Natural Language Processing (NLP)</strong> and 
+      <strong>Machine Learning algorithms</strong> to analyze text content, identify suspicious keywords, 
+      and detect spammy writing patterns with high accuracy.
+    </p>
+    <p>
+      This project demonstrates how <strong>Python (Flask)</strong> integrates seamlessly with modern web 
+      technologies to build intelligent, scalable, and user-friendly AI applications.
+    </p>
+  </div>
+</div>
+
+<!-- Technologies Section -->
+<div class="technologies">
+  <h3>🛠️ Technologies Used</h3>
+  <div class="tech-logos">
+    <div><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"><p>Python</p></div>
+    <div><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg"><p>Flask</p></div>
+    <div><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"><p>HTML5</p></div>
+    <div><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg"><p>CSS3</p></div>
+    <div><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg"><p>Bootstrap</p></div>
+  </div>
+</div>
+
+<!-- Workflow Section -->
+<div class="workflow">
+  <h3>⚙️ How It Works</h3>
+  <div class="workflow-container">
+    <img src="https://www.researchgate.net/profile/Md-Amin-72/publication/360589729/figure/fig2/AS:1155606362759171@1652529435863/The-Methods-Used-in-Phishing.ppm" alt="Workflow Image">
+    <div class="workflow-text">
+      <p>
+        The spam detection pipeline begins with preprocessing user messages to remove unwanted characters, links, and stopwords.
+        Text data is then converted into numerical features using <strong>TF-IDF Vectorization</strong> or <strong>Word Embeddings</strong>.
+        These features are fed into a trained model (e.g., Naive Bayes or Logistic Regression) that predicts whether a message is spam.
+      </p>
+      <p>
+        The system continuously improves through feedback loops and model retraining, ensuring adaptability to evolving spam trends.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Use Cases -->
+<div class="use-cases">
+  <h3>💡 Real-World Applications</h3>
+  <div class="use-cards">
+    <div class="use-card">
+      <img src="https://th.bing.com/th/id/OIP.68gJcy_5D_h19QGIwmG3_QHaE7?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Email Filtering">
+      <h4>Email Filtering</h4>
+      <p>Automatically filters unwanted promotional or phishing emails from a user’s inbox.</p>
+    </div>
+    <div class="use-card">
+      <img src="https://static.vecteezy.com/system/resources/previews/041/170/992/non_2x/spam-detection-concept-flat-illustration-vector.jpg" alt="Chat Spam Detection">
+      <h4>Chat Spam Detection</h4>
+      <p>Identifies and blocks spam messages in real-time chat applications.</p>
+    </div>
+    <div class="use-card">
+      <img src="https://backendless.com/wp-content/uploads/2023/10/spam-detection-service.png" alt="Social Media Moderation">
+      <h4>Social Media Moderation</h4>
+      <p>Detects suspicious links, comments, or content on social media platforms.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Team Section -->
+<div class="team-section">
+  <h3>👩‍💻 Meet the Team</h3>
+  <div class="team-container">
+    <div class="team-member">
+      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="spam">
+      <h5>Andrew Dew</h5>
+      <p>Project Developer</p>
+      <p>Python | Flask | ML</p>
+    </div>
+    <div class="team-member">
+      <img src="https://cdn-icons-png.flaticon.com/512/1999/1999625.png" alt="Collaborator">
+      <h5>John Doe</h5>
+      <p>Data Analyst</p>
+      <p>NLP | Data Preprocessing</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

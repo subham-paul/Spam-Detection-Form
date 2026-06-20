@@ -1,0 +1,347 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f3f7fc;
+    color: #333;
+    margin: 0;
+  }
+
+  /* Global Animations */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.8s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Hero Section */
+  .hero {
+    position: relative;
+    text-align: center;
+    padding: 150px 20px;
+    
+    color: white;
+    border-radius: 0 0 50px 50px;
+    background: linear-gradient(135deg, rgba(50, 84, 131, 0.8), rgba(126, 170, 189, 0.8)),
+                url("https://southbeachgeek.com/wp-content/uploads/2025/02/DALL%C2%B7E-2024-06-04-23.28.49-An-illustration-of-a-digital-email-inbox-with-a-large-red-spam-warning-icon.-The-background-features-a-clean-modern-design-with-light-blue-and-white-.webp") center/cover no-repeat;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .hero-overlay {
+    max-width: 800px;
+    margin: 0 auto;
+    backdrop-filter: brightness(1.1);
+  }
+
+  .hero h2 {
+    font-size: 2.6rem;
+    margin-bottom: 15px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  .hero p {
+    font-size: 1.15rem;
+    max-width: 700px;
+    margin: 0 auto 25px;
+    line-height: 1.7;
+    color: #eaf6ff;
+  }
+
+  .hero a {
+    background: white;
+    color: #004aad;
+    padding: 12px 30px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: 0.3s;
+    box-shadow: 0 4px 12px rgba(255,255,255,0.2);
+  }
+
+  .hero a:hover {
+    background: #004aad;
+    color: white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  }
+
+  /* Section Titles */
+  .section-title {
+    text-align: center;
+    margin: 80px 0 30px;
+    color: #004aad;
+    font-size: 2rem;
+    font-weight: 700;
+    position: relative;
+  }
+
+  .section-title::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #007bff, #00c6ff);
+    transform: translateX(-50%);
+    border-radius: 2px;
+  }
+
+  /* Feature Cards */
+  .features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    margin: 40px auto;
+    max-width: 1100px;
+  }
+
+  .feature-card {
+    background: #fff;
+    border-radius: 15px;
+    padding: 30px 25px;
+    width: 300px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+  }
+
+  .feature-logo {
+    font-size: 2.8rem;
+    margin-bottom: 12px;
+    color: #007bff;
+    filter: drop-shadow(0 3px 3px rgba(0,0,0,0.1));
+  }
+
+  .feature-card h4 {
+    color: #004aad;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  .feature-card p {
+    color: #555;
+    font-size: 0.97rem;
+    line-height: 1.6;
+  }
+
+  /* Logo Section */
+  .logos-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    max-width: 1100px;
+    margin: 60px auto;
+  }
+
+  .logo-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+    width: 180px;
+    height: 150px;
+    text-align: center;
+    padding: 25px;
+    transition: 0.3s ease;
+  }
+
+  .logo-card:hover {
+    transform: scale(1.08);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  }
+
+  .logo-symbol {
+    font-size: 2.8rem;
+    color: #0056d2;
+    margin-bottom: 12px;
+  }
+
+  .logo-name {
+    font-weight: 600;
+    color: #004aad;
+    font-size: 1rem;
+  }
+
+  /* CTA Section */
+  .cta {
+    background: linear-gradient(135deg, #004aad, #0066ff);
+    color: white;
+    text-align: center;
+    padding: 70px 25px;
+    border-radius: 20px;
+    margin: 80px auto;
+    max-width: 1000px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  }
+
+  .cta h3 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    font-weight: 700;
+  }
+
+  .cta p {
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    color: #eaf6ff;
+  }
+
+  .cta a {
+    background: white;
+    color: #004aad;
+    padding: 14px 30px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: 0.3s;
+    font-size: 1rem;
+  }
+
+  .cta a:hover {
+    background: #007bff;
+    color: white;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .features, .logos-container {
+      flex-direction: column;
+      align-items: center;
+    }
+    .feature-card, .logo-card {
+      width: 85%;
+    }
+    .hero h2 {
+      font-size: 2rem;
+    }
+    .section-title {
+      font-size: 1.7rem;
+    }
+  }
+</style>
+
+<!-- Hero -->
+<div class="hero fade-in">
+  <h2>Spam Detection System</h2>
+  <p>
+    Experience next-generation AI technology that detects and filters spam instantly.
+    Built with precision, privacy, and intelligence at its core.
+  </p>
+  <a href="{{ url_for('form') }}">🚀 Try It Now</a>
+</div>
+
+<!-- Mission -->
+<h3 class="section-title fade-in">🎯 Our Mission</h3>
+<div class="features fade-in">
+  <div class="feature-card">
+    <div class="feature-logo">🛡️</div>
+    <h4>Protect Users</h4>
+    <p>Creating a safer digital space by eliminating harmful or fraudulent spam messages efficiently.</p>
+  </div>
+  <div class="feature-card">
+    <div class="feature-logo">💡</div>
+    <h4>Innovate with AI</h4>
+    <p>We continuously evolve our NLP models to recognize the latest spam techniques and language patterns.</p>
+  </div>
+  <div class="feature-card">
+    <div class="feature-logo">🤝</div>
+    <h4>Build Trust</h4>
+    <p>Designed for transparency and reliability, every detection is 100% private and user-centric.</p>
+  </div>
+</div>
+
+<!-- How AI Learns -->
+<h3 class="section-title fade-in">📡 How Our AI Learns</h3>
+<div class="features fade-in">
+  <div class="feature-card">
+    <div class="feature-logo">🧩</div>
+    <h4>Training Data</h4>
+    <p>Trained on thousands of real-world examples to distinguish spam from genuine content with accuracy.</p>
+  </div>
+  <div class="feature-card">
+    <div class="feature-logo">🔍</div>
+    <h4>Pattern Recognition</h4>
+    <p>Detects suspicious word frequencies and language cues unique to spam messaging.</p>
+  </div>
+  <div class="feature-card">
+    <div class="feature-logo">📈</div>
+    <h4>Continuous Learning</h4>
+    <p>Our AI keeps improving daily as new messages are analyzed, staying ahead of evolving spam tactics.</p>
+  </div>
+</div>
+
+<!-- User Feedback -->
+<h3 class="section-title fade-in">💬 User Feedback & Continuous Improvement</h3>
+<div class="features fade-in">
+  <div class="feature-card">
+    <div class="feature-logo">🗣️</div>
+    <h4>User Insights</h4>
+    <p>We value feedback — each user report refines the AI, helping it adapt to real-world message behavior.</p>
+  </div>
+  <div class="feature-card">
+    <div class="feature-logo">🤖</div>
+    <h4>Smart Updates</h4>
+    <p>The system self-updates automatically based on trends to detect even the newest spam styles.</p>
+  </div>
+  <div class="feature-card">
+    <div class="feature-logo">🌟</div>
+    <h4>Improving Accuracy</h4>
+    <p>Constant retraining and testing deliver unmatched reliability and consistent performance.</p>
+  </div>
+</div>
+
+<!-- Logos -->
+<h3 class="section-title fade-in">🔧 Powered by Trusted Technologies</h3>
+<div class="logos-container fade-in">
+  <div class="logo-card">
+    <div class="logo-symbol">💻</div>
+    <div class="logo-name">Python NLP</div>
+  </div>
+  <div class="logo-card">
+    <div class="logo-symbol">🧠</div>
+    <div class="logo-name">Scikit-learn</div>
+  </div>
+  <div class="logo-card">
+    <div class="logo-symbol">☁️</div>
+    <div class="logo-name">Flask Framework</div>
+  </div>
+  <div class="logo-card">
+    <div class="logo-symbol">🔒</div>
+    <div class="logo-name">Secure AI Engine</div>
+  </div>
+  <div class="logo-card">
+    <div class="logo-symbol">⚙️</div>
+    <div class="logo-name">TensorFlow</div>
+  </div>
+  <div class="logo-card">
+    <div class="logo-symbol">🌐</div>
+    <div class="logo-name">API Integration</div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta fade-in">
+  <h3>Want to Experience It Yourself?</h3>
+  <p>Detect spam instantly and safely — fast, reliable, and built for your security.</p>
+  <a href="{{ url_for('form') }}">Analyze Your Message →</a>
+</div>
+{% endblock %}
+ 

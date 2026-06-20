@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #7ca5c2, #cf8da3);
+    margin: 0;
+    padding: 0;
+  }
+
+  .result-container {
+    max-width: 750px;
+    margin: 80px auto;
+    padding: 40px;
+    background: linear-gradient(145deg, #ffffff, #f8fbff);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .result-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+  }
+
+  .result-container h2 {
+    color: #004aad;
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+
+  .result-container p {
+    color: #444;
+    font-size: 1.05rem;
+    margin-bottom: 25px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 25px;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  th, td {
+    padding: 14px;
+    border-bottom: 1px solid #eee;
+  }
+
+  th {
+    background: linear-gradient(135deg, #2196f3, #21cbf3);
+    color: white;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f7f9fc;
+  }
+
+  tr:hover {
+    background: #e8f4fd;
+    transition: 0.3s;
+  }
+
+  .spam {
+    color: #e53935;
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(229,57,53,0.2);
+  }
+
+  .ham {
+    color: #43a047;
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(67,160,71,0.2);
+  }
+
+  .overall {
+    margin-top: 30px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    padding: 20px;
+    border-radius: 10px;
+    animation: fadeIn 0.8s ease;
+  }
+
+  .overall.spam {
+    background: linear-gradient(135deg, #ffe6e6, #ffb3b3);
+    color: #b71c1c;
+    border-left: 6px solid #e53935;
+  }
+
+  .overall.ham {
+    background: linear-gradient(135deg, #e6ffe6, #b3ffb3);
+    color: #1b5e20;
+    border-left: 6px solid #43a047;
+  }
+
+  .btns {
+    margin-top: 25px;
+  }
+
+  .btns a {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 8px;
+    margin: 10px;
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #2196f3, #21cbf3);
+  }
+
+  .btn-primary:hover {
+    background: linear-gradient(135deg, #1976d2, #00bcd4);
+    transform: translateY(-3px);
+  }
+
+  .btn-success {
+    background: linear-gradient(135deg, #43a047, #66bb6a);
+  }
+
+  .btn-success:hover {
+    background: linear-gradient(135deg, #2e7d32, #388e3c);
+    transform: translateY(-3px);
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<div class="result-container">
+  <h2>📊 Spam Detection Result</h2>
+  <p>Your message was analyzed using three machine learning models.</p>
+
+  <table>
+    <tr>
+      <th>Model</th>
+      <th>Prediction</th>
+    </tr>
+    {% for model, prediction in result.items() if model != 'Overall Result (Majority Vote)' %}
+    <tr>
+      <td>{{ model }}</td>
+      <td class="{{ 'spam' if prediction == 'Spam' else 'ham' }}">{{ prediction }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+  {% set final = result['Overall Result (Majority Vote)'] %}
+  <div class="overall {{ 'spam' if final == 'Spam' else 'ham' }}">
+    Final Verdict: {{ final }}
+  </div>
+
+  <div class="btns">
+    <a href="{{ url_for('form') }}" class="btn-primary">Submit Another</a>
+    <a href="{{ url_for('home') }}" class="btn-success">Go Home</a>
+  </div>
+</div>
+{% endblock %}

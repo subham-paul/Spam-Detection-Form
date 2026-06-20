@@ -1,0 +1,240 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f5f7fb;
+  }
+
+  /* Header */
+  .form-header {
+    text-align: center;
+    padding: 60px 20px;
+    background: linear-gradient(135deg, #007bff, #00c6ff);
+    color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+
+  .form-header h2 { font-size: 2.2rem; margin-bottom: 10px; }
+  .form-header p { font-size: 1.1rem; max-width: 700px; margin: auto; line-height: 1.6; }
+
+  /* --- Two Column Layout --- */
+  .form-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch; /* ensures equal height */
+    gap: 40px;
+    margin: 60px auto;
+    max-width: 1200px;
+    padding: 20px;
+  }
+
+  /* --- Spam Form --- */
+  .spam-form {
+    flex: 1;
+    min-width: 350px;
+    max-width: 600px;
+    background: linear-gradient(135deg, #678da2, #abc5eb);
+    border-radius: 16px;
+    padding: 40px 30px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .spam-form:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  }
+
+  .spam-form label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    display: block;
+  }
+
+  .spam-form input, .spam-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 18px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+
+  .spam-form input:focus, .spam-form textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0,123,255,0.2);
+    outline: none;
+  }
+
+  .spam-form button {
+    background: linear-gradient(135deg, #007bff, #00c6ff);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    width: 100%;
+    font-weight: 600;
+    transition: background 0.3s, transform 0.3s;
+  }
+
+  .spam-form button:hover {
+    background: linear-gradient(135deg, #0056b3, #0094ff);
+    transform: translateY(-2px);
+  }
+
+  /* --- Tips Container --- */
+  .tips-container {
+    flex: 1;
+    min-width: 320px;
+    background: linear-gradient(135deg, #c8aa70, #cfa46c);
+    border-radius: 16px;
+    padding: 40px 30px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .tips-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  }
+
+  .tips-container img {
+    width: 100px;
+    margin: 0 auto 20px;
+  }
+
+  .tips-container h3 {
+    color: #004aad;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+
+  .tips-container ul {
+    text-align: left;
+    list-style: none;
+    padding: 0;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  .tips-container ul li {
+    background: rgba(255,255,255,0.8);
+    margin: 10px 0;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: #333;
+    position: relative;
+  }
+
+  .tips-container ul li::before {
+    content: "✔";
+    color: #007bff;
+    margin-right: 8px;
+    font-weight: bold;
+  }
+
+  /* --- Info Section --- */
+  .info-section {
+    text-align: center;
+    margin: 70px auto;
+    max-width: 900px;
+  }
+
+  .info-section h3 { color: #004aad; margin-bottom: 20px; }
+  .info-section p { color: #555; line-height: 1.7; margin-bottom: 30px; }
+
+  .tech-logos {
+    display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;
+  }
+
+  .tech-logos div {
+    background: white; border-radius: 12px; padding: 20px; width: 150px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.3s;
+  }
+
+  .tech-logos div:hover { transform: translateY(-5px); }
+  .tech-logos img { width: 60px; height: 60px; margin-bottom: 10px; }
+  .tech-logos p { font-weight: 600; font-size: 0.95rem; }
+
+  @media (max-width: 992px) {
+    .form-section {
+      flex-direction: column;
+      align-items: center;
+    }
+    .spam-form, .tips-container {
+      width: 100%;
+      max-width: 600px;
+    }
+  }
+</style>
+
+<!-- Header -->
+<div class="form-header">
+  <h2>Spam Detection Form</h2>
+  <p>Paste your message or email content below to check whether it’s spam or not using AI-powered text analysis.</p>
+</div>
+
+<!-- Two-Column Section -->
+<div class="form-section">
+  <!-- Form -->
+  <div class="spam-form">
+    <form method="POST" action="{{ url_for('predict') }}">
+      <label for="sender_name">Sender Name:</label>
+      <input type="text" id="sender_name" name="sender_name" placeholder="Enter the sender’s name" required>
+
+      <label for="sender_email">Sender Email:</label>
+      <input type="email" id="sender_email" name="sender_email" placeholder="Enter the sender’s email address" required>
+
+      <label for="subject">Subject Line:</label>
+      <input type="text" id="subject" name="subject" placeholder="Enter the email subject (optional)">
+
+      <label for="message">Message Content:</label>
+      <textarea id="message" name="message" rows="6" placeholder="Enter or paste your message here..." required></textarea>
+
+      <button type="submit">Analyze Message</button>
+    </form>
+  </div>
+
+  <!-- Tips Container -->
+  <div class="tips-container">
+    <img src="https://cdn-icons-png.flaticon.com/512/1038/1038258.png" alt="Spam Icon">
+    <h3>🛡️ Avoiding Spam: Quick Tips</h3>
+    <ul>
+      <li>Don’t click unknown links or attachments.</li>
+      <li>Check the sender’s email domain carefully.</li>
+      <li>Look for poor grammar or urgency in messages.</li>
+      <li>Never share personal details through email.</li>
+      <li>Use spam filters and report suspicious mail.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Info Section -->
+<div class="info-section">
+  <h3>💡 How the Spam Detection Works</h3>
+  <p>Our system uses a trained Machine Learning model to identify suspicious patterns and common spam keywords.
+  The algorithm evaluates word frequency, tone, and message structure to detect spam.</p>
+
+  <div class="tech-logos">
+    <div><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"><p>Python</p></div>
+    <div><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg"><p>Flask</p></div>
+    <div><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"><p>HTML5</p></div>
+    <div><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg"><p>CSS3</p></div>
+  </div>
+</div>
+
+{% endblock %}

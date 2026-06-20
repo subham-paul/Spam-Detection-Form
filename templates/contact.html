@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #e3f2fd, #f8f9fa);
+  }
+
+  .contact-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    gap: 40px;
+    padding: 70px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* Left Form Container */
+  .contact-form {
+    flex: 1 1 450px;
+    background: linear-gradient(135deg, #ffffff, #e8f0fe);
+    padding: 40px 45px;
+    border-radius: 16px;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .contact-form:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 123, 255, 0.2);
+  }
+
+  .contact-form h2 {
+    color: #004aad;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 1.8rem;
+  }
+
+  .contact-form p {
+    text-align: center;
+    color: #555;
+    margin-bottom: 25px;
+  }
+
+  .contact-form label {
+    display: block;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 6px;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 10px;
+    border: 1.5px solid #cfd8dc;
+    font-size: 1rem;
+    margin-bottom: 18px;
+    transition: 0.3s;
+    background-color: #f9fbff;
+  }
+
+  .contact-form input:focus,
+  .contact-form textarea:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 6px rgba(0, 123, 255, 0.3);
+    background: #ffffff;
+  }
+
+  .contact-form button {
+    display: block;
+    width: 100%;
+    background: linear-gradient(135deg, #007bff, #00b4d8);
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+  }
+
+  .contact-form button:hover {
+    background: linear-gradient(135deg, #0056b3, #007bff);
+    box-shadow: 0 6px 16px rgba(0, 91, 187, 0.4);
+    transform: translateY(-2px);
+  }
+
+  /* Right Map Container */
+  .contact-map {
+    flex: 1 1 450px;
+    background: linear-gradient(135deg, #ffffff, #f1f5ff);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .contact-map:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 123, 255, 0.2);
+  }
+
+  .contact-map iframe {
+    width: 100%;
+    height: 100%;
+    min-height: 480px;
+    border: 0;
+  }
+
+  /* Subtle entrance animation */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .contact-form, .contact-map {
+    animation: fadeInUp 0.8s ease forwards;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .contact-section {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .contact-form, .contact-map {
+      width: 100%;
+    }
+  }
+</style>
+
+<div class="contact-section">
+  <!-- Left Container (Form) -->
+  <div class="contact-form">
+    <h2>Contact Us</h2>
+    <p>We’d love to hear from you! Fill out the form below to get in touch.</p>
+
+    <form action="#" method="post">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+
+      <label for="subject">Subject:</label>
+      <input type="text" id="subject" name="subject" placeholder="Enter your message subject" required>
+
+      <label for="message">Message:</label>
+      <textarea id="message" name="message" rows="5" placeholder="Write your message here..." required></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+
+  <!-- Right Container (Map) -->
+  <div class="contact-map">
+    <iframe
+      src="https://www.google.com/maps?q=Kolkata,+West+Bengal,+India&output=embed"
+      allowfullscreen
+      loading="lazy">
+    </iframe>
+  </div>
+</div>
+
+{% endblock %}
