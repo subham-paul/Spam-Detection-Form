@@ -1,6 +1,6 @@
 # 🛡️ Spam Detection System
 
-A robust **Spam Detection Form** built with **Python**, **Flask**, and **Machine Learning** that classifies user-submitted text messages as **Spam** or **Legitimate (Ham)**. The application utilizes a **Majority Voting Ensemble Learning** approach by combining three different machine learning models to improve prediction accuracy and reliability.
+A robust **Spam Detection System** built with **Python**, **Flask**, and **Machine Learning** that classifies user-submitted text messages as **Spam** or **Legitimate (Ham)**. The application utilizes a **Majority Voting Ensemble Learning** approach by combining three different machine learning models to improve prediction accuracy and reliability.
 
 > **Smarter spam detection through ensemble machine learning.**
 
